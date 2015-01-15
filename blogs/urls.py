@@ -1,3 +1,11 @@
+"""
+-------------------------------------------------------------------------
+	Author: Dadaso Zanzane
+
+	git clone https://github.com/dadasoz-cuelogic/blog-app.git 
+--------------------------------------------------------------------------
+
+"""
 from django.conf.urls import patterns, url
 
 urlpatterns = patterns('blogs.views',

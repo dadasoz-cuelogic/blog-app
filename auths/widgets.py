@@ -1,3 +1,11 @@
+"""
+-------------------------------------------------------------------------
+	Author: Dadaso Zanzane
+
+	git clone https://github.com/dadasoz-cuelogic/blog-app.git 
+--------------------------------------------------------------------------
+
+"""
 from django import forms
 from django.utils.safestring import mark_safe
 from django.conf import settings

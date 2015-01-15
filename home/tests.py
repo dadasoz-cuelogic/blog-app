@@ -1,4 +1,12 @@
 """
+-------------------------------------------------------------------------
+	Author: Dadaso Zanzane
+
+	git clone https://github.com/dadasoz-cuelogic/blog-app.git 
+--------------------------------------------------------------------------
+
+"""
+"""
 This file demonstrates writing tests using the unittest module. These will pass
 when you run "manage.py test".
 

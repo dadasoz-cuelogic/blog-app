@@ -1,3 +1,12 @@
+
+"""
+-------------------------------------------------------------------------
+	Author: Dadaso Zanzane
+
+	git clone https://github.com/dadasoz-cuelogic/blog-app.git 
+--------------------------------------------------------------------------
+
+"""
 from django.shortcuts import get_object_or_404, render_to_response #Imports Error, and render as response
 from django.http import HttpResponseRedirect, HttpResponse 
 from django.template import RequestContext

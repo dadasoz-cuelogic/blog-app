@@ -1,3 +1,11 @@
+"""
+-------------------------------------------------------------------------
+	Author: Dadaso Zanzane
+
+	git clone https://github.com/dadasoz-cuelogic/blog-app.git 
+--------------------------------------------------------------------------
+
+"""
 from django.db import models
 from blogs.models import Blogs
 from django import forms

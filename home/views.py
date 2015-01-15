@@ -1,3 +1,11 @@
+"""
+-------------------------------------------------------------------------
+	Author: Dadaso Zanzane
+
+	git clone https://github.com/dadasoz-cuelogic/blog-app.git 
+--------------------------------------------------------------------------
+
+"""
 # Create your views here.
 from django.shortcuts import render_to_response
 from django.template import RequestContext

@@ -1,3 +1,11 @@
+"""
+-------------------------------------------------------------------------
+    Author: Dadaso Zanzane
+
+    git clone https://github.com/dadasoz-cuelogic/blog-app.git 
+--------------------------------------------------------------------------
+
+"""
 from django.conf import settings
 from django import forms
 from django.utils.encoding import smart_unicode

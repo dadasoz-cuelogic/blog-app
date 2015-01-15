@@ -1,4 +1,12 @@
 """
+-------------------------------------------------------------------------
+	Author: Dadaso Zanzane
+
+	git clone https://github.com/dadasoz-cuelogic/blog-app.git 
+--------------------------------------------------------------------------
+
+"""
+"""
 WSGI config for demoproject project.
 
 This module contains the WSGI application used by Django's development server
