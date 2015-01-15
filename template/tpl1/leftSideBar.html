@@ -1,0 +1,32 @@
+	<aside class="sideInfo">
+		{% if login %}
+			{% if not login = "" %}
+			<article>
+				<h3>User Menu</h3>			
+				<p><a href="/blogs/myblogs">My Blogs</a></p>
+				<p><a href="/blogs/create">Create Blog</a></p>
+			</article>
+			{% endif %}
+		{% endif %}
+
+		<article>
+			<h3>Recent News</h3>			
+			<p><a href="#">News 1</a></p>
+			<p><a href="#">News 2</a></p>
+		</article>
+	</aside>
+	<div class="breadCums">
+
+		<ul>
+			<li class="main"><a href="/">Home</a></li>
+			{% if view_name == "blogs" or view_name == "myblogs" or view_name == "create" %}<li> <label>></label></i> Blogs</li>
+			{% endif%}
+			{% if view_name == "myblogs" or view_name == "editBlog" %}<li> <label>></label></i> My Blogs</li>{% endif%}
+			{% if view_name == "create" %}<li> <label>></label></i> Create</li>{% endif%}
+			{% if view_name == "editBlog" %}<li> <label>></label></i> Edit</li>{% endif%}
+			{% if view_name == "news" %}<li> <label>></label></i> News</li>{% endif%}
+			{% if view_name == "contact" %}<li> <label>></label></i> Contact</li>{% endif%}
+
+		</ul>
+
+	</div>

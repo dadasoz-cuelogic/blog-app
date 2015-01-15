@@ -1,0 +1,73 @@
+{% include "tpl1/header.html" %}
+
+
+</head>
+<body class="body">
+
+	{% include "tpl1/head.html" %}
+	{% include "tpl1/leftSideBar.html" %}
+
+	<div class="main-containts">
+	
+		<div class="containts">
+			
+			<form method="POST" action="{{SITE_URL}}/login/" name="login">
+				{% csrf_token %}
+				<table cellpadding="0" cellspacing="0" border="0" class="tbl loginTable" align="center">
+
+
+					<tr>
+						<td width="45%" align="right" colspan="2"></td>
+						<td width="45%"><label class="h1">Login</label</td>
+					</tr>
+
+					<tr>
+						<td width="45%" align="right">Email</td>
+						<td width="10%" align="center">:</td>
+						<td width="45%"><input type="text" name="email" class="text-field"></td>
+					</tr>
+
+					<tr>
+						<td width="45%" align="right">Password</td>
+						<td width="10%" align="center">:</td>
+						<td width="45%"><input type="password" name="password" class="text-field"></td>
+					</tr>
+
+					<tr>
+						<td width="45%" align="right" colspan="2"></td>
+						<td width="45%" align="center" ><a href="#">Forgot Password</a> | <a href="/register">Register</a></td>
+					</tr>
+
+
+					<tr>
+						<td width="45%" align="right"></td>
+						<td width="10%" align="center"></td>
+						<td width="45%">
+							<input type="submit" name="submit" value="Login" class="btn submit-btn">
+							<input type="reset" name="submit" value="Reset" class="btn reset-btn">
+						</td>
+					</tr>
+
+					<tr>
+						<td width="45%" align="right"></td>
+						<td width="10%" align="center"></td>
+						<td width="45%">
+							<label class="errMsg">{{msg}}</label>
+						</td>
+					</tr>
+					
+				</table>
+
+
+
+			</form>
+
+
+
+		</div>		
+	</div>
+	{% include "tpl1/footer.html" %}
+
+
+</body>
+</html>

@@ -1,0 +1,36 @@
+{% include "tpl1/header.html" %}
+
+
+</head>
+<body class="body">
+
+	{% include "tpl1/head.html" %}
+	{% include "tpl1/leftSideBar.html" %}
+	<div class="main-containts">
+	
+		<div class="containts">
+			
+				<article class="tmp-article">
+						<header>
+							<h3><a href="#">{{ blog.blog_title }}</a></h3>
+						</header>
+						<div class="tmp-article-data">
+						<p>
+							{% autoescape off %}
+							{{ blog.blog_contents }}
+							{% endautoescape %}
+						</p>
+						</div>	
+						<footer class="content-footer">
+						<a href="#">{{ blog.pub_date }}</a></footer>
+												
+				</article>
+				
+
+		</div>		
+	</div>
+	{% include "tpl1/footer.html" %}
+
+
+</body>
+</html>

@@ -1,0 +1,44 @@
+{% include "tpl1/header.html" %}
+
+
+</head>
+<body class="body">
+
+	{% include "tpl1/head.html" %}
+	{% include "tpl1/leftSideBar.html" %}
+
+	<div class="main-containts">
+	
+		<div class="containts">
+
+			{% if latest_blogs_list %}
+				{% for blog in latest_blogs_list %}
+				<article class="tmp-article">
+						<header>
+							<h3><a href="/blogs/{{ blog.id }}/">{{ blog.blog_title }}</a></h3>
+						</header>
+						<div class="tmp-article-data">
+						<p>
+							{% autoescape off %}
+							{{ blog.blog_contents | truncatechars:210 }}
+							{% endautoescape %}
+							
+						</p>
+						</div>	
+						<footer class="content-footer">
+						<a href="#">{{ blog.pub_date }}</a></footer>
+												
+				</article>
+				{% endfor %}
+			{% else %}
+			    <p>No Blogs are available.</p>
+			{% endif %}
+
+
+		</div>		
+	</div>
+	{% include "tpl1/footer.html" %}
+
+
+</body>
+</html>

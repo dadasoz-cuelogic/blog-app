@@ -1,0 +1,29 @@
+
+	<header class="main-head">
+	    <div class="logo-div">
+		<h1>Cuelogic Blog</h1>
+		<h4>Build in Python</h4>
+		<div class="userInfo">
+			{% if not login %}
+			<label><a href="/login">Login</a></label>
+			|
+			<label><a href="/register">Register</a></label>
+			{% elif login == ""%}
+			<label><a href="/login">Login</a></label>
+			|
+			<label><a href="/register">Register</a></label>
+			{% else %}			
+			<label>Welcome,{{ login.name }}</label>&nbsp;|&nbsp;<label><a href="/logout">Logout</a></label>
+			{% endif %}
+		</div>
+	    </div>
+		<nav><ul>
+			<li {% if view_name == "home" or view_name == "" %}class="active"{% endif%}><a href="/">Home</a></li>
+			<li {% if view_name == "blogs" %}class="active" {% endif%}><a href="/blogs/">Blogs</a></li>
+			<li {% if view_name == "news" %}class="active" {% endif%}><a href="/news/">News</a></li>
+			<li {% if view_name == "contact" %}class="active" {% endif%}><a href="/contact/">Contact</a></li>
+		</ul></nav>
+	</header>
+
+
+

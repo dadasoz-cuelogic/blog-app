@@ -1,0 +1,11 @@
+
+	<aside class="sideInfo">
+		<article>
+			<h3>Recent News</h3>
+			<marquee direction="top">
+			<p>New 1</p>
+			<p>New 2</p>
+			</marquee>
+		</article>
+	</aside>
+	

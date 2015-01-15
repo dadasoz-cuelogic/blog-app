@@ -1,0 +1,42 @@
+{% include "tpl1/header.html" %}
+
+</head>
+<body class="body">
+
+	{% include "tpl1/head.html" %}
+	{% include "tpl1/leftSideBar.html" %}
+
+	<div class="main-containts">
+	
+		<div class="containts">
+
+			{% if latest_blogs_list %}
+				{% for blog in latest_blogs_list %}
+				<article class="tmp-article">
+						<header>
+							<h3><a href="/blogs/{{ blog.id }}/">{{ blog.blog_title }}</a>
+
+								<label class="blog_buttons">
+									<a href="/blogs/edit/{{ blog.id }}/">Edit</a> |  <a href="/blogs/delete/{{ blog.id }}/" onclick="return confirm('Are you sure?')">Delete</a>	
+								</label>
+
+							</h3>
+							
+						</header>					
+						<footer class="content-footer">
+						<a href="#">{{ blog.pub_date }}</a></footer>
+												
+				</article>
+				{% endfor %}
+			{% else %}
+			    <p>No Blogs are available.</p>
+			{% endif %}
+
+
+		</div>		
+	</div>
+	{% include "tpl1/footer.html" %}
+
+
+</body>
+</html>

@@ -1,0 +1,15 @@
+
+	<header class="main-head">
+	    <div class="logo-div">
+		<h1>Cuelogic Blog</h1>
+	    </div>
+		<nav><ul>
+			<li class="active"><a href="#">Home</a></li>
+			<li class=""><a href="#">Blogs</a></li>
+			<li class=""><a href="#">News</a></li>
+			<li class=""><a href="#">Contact</a></li>
+		</ul></nav>
+	</header>
+
+
+
