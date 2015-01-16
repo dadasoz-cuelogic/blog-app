@@ -12,9 +12,9 @@ Setup the database connection
 
 --Install The project
 
----
+--------
 $ git clone https://github.com/dadasoz-cuelogic/blog-app.git 
----
+--------
 
 -- Install the requiremsnts from the file(requirements.txt)
 
