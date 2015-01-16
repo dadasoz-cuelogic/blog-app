@@ -16,7 +16,11 @@ Setup the database connection
 
 -- Install the requiremsnts from the file(requirements.txt)
 
-    $ pip install -r requirements.txt
+    pip install -r REQUIREMENTS.txt           # Install or upgrade dependencies
+    
+    python manage.py migrate                  # Apply database migrations
+    
+    python manage.py compilemessages          # Create translation files
 
 Sync the Database
 
