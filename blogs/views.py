@@ -7,120 +7,97 @@
 --------------------------------------------------------------------------
 
 """
-from django.shortcuts import get_object_or_404, render_to_response #Imports Error, and render as response
+from django.shortcuts import get_object_or_404, render_to_response # Imports Error, and render as response
 from django.http import HttpResponseRedirect, HttpResponse 
 from django.template import RequestContext
 from django.core.urlresolvers import reverse
 from django.shortcuts import render,redirect
-from blogs.models import Blogs #Imports Blog Model(for Database class)
-from blogs.forms import BlogForm  #Imports Blog Form Class
-from auths.models import Registration #For access registration class as foreign key constraints
-from django.template.response import TemplateResponse #To generate templete response 
+from blogs.models import Blogs # Imports Blog Model(for Database class)
+from blogs.forms import BlogForm  # Imports Blog Form Class
+from auths.models import Registration # For access registration class as foreign key constraints
+from django.template.response import TemplateResponse # To generate templete response 
 from datetime import datetime # import system datetime
-from django.views.generic.edit import UpdateView #Update view for the form class
+from django.views.generic.edit import UpdateView # Update view for the form class
 
 
-# Create your views here.
-data={}  #Global Dictionary to store output data as in input for template/its a global includes everything
+data={}  # Global Dictionary to store output data as in input for template/its a global includes everything
 
-data.update({"login":"","view_name":"blogs"}) #update the dictionary
-
-
-#Login details function which checks for the login sessions and stores to the login as key value
-#redirects to login if not loggedin
-#requires the request instance
-def loginDetails(request):
-    if request.session.get('login'):
-        data.update({"login":request.session['login']})
-    else:
-        return redirect('/login/')
+data.update({"login":"","view_name":"blogs"}) # update the dictionary
 
 
-#Index view to generate the list of blogs
-def index(request):
-    if request.session.get('login'):
-        data.update({"login":request.session['login']})
-    else:
-        return redirect('/login/')   #check for login 
-    data["view_name"] = "home"  #set view name for default
-    latest_blogs_list = Blogs.objects.all().order_by('-pub_date')[:10] #get the letest 5 blogs order by pub_date descending
-    data.update({'latest_blogs_list': latest_blogs_list})
-    return render_to_response('tpl1/blogs.html',  RequestContext(request, data))
+# to authenticate the user
+def authenticate(func):
+    def authenticate_and_call(request,*args, **kwargs):# accept the request object
+        if request.session.get('login'): # checks for the session values
+            data.update({"login":request.session['login']}) # if session exist add the session values to the main dict
+        else:
+            return redirect('/login') # if session is not availabe redirect to login
+        return func(request,*args, **kwargs) # return function 
+    return authenticate_and_call 
 
-def blogs(request):
-    if request.session.get('login'):
-        data.update({"login":request.session['login']})
-    else:
-        return redirect('/login/')
-    data["view_name"] = "blogs"
-    latest_blogs_list = Blogs.objects.all().order_by('-pub_date')[:10]
-    data.update({'latest_blogs_list': latest_blogs_list})
-    return render_to_response('tpl1/blogs.html',  RequestContext(request, data))
+# Index view to generate the list of blogs
+@authenticate # call the decorator 'authenticate'
+def index(request): 
+    data["view_name"] = "home"  # set view name for default
+    latest_blogs_list = Blogs.objects.all().order_by('-pub_date')[:10] # get the letest 5 blogs order by pub_date descending
+    data.update({'latest_blogs_list': latest_blogs_list})# Update the main data dictionary
+    return render_to_response('tpl1/blogs.html',  RequestContext(request, data)) # render the template with data and request object
 
-def detail(request, blog_id):
-    loginDetails(request)
+@authenticate # call the decorator 'authenticate'
+def blogs(request): # To display list of blogs 
+    data["view_name"] = "blogs" # set view name for default
+    latest_blogs_list = Blogs.objects.all().order_by('-pub_date')[:10] # get the letest 5 blogs order by pub_date descending
+    data.update({'latest_blogs_list': latest_blogs_list}) # Update the main data dictionary
+    return render_to_response('tpl1/blogs.html',  RequestContext(request, data)) # render the template with data and request object
+
+@authenticate # call the decorator 'authenticate'
+def detail(request, blog_id): #Detail view for blog(Indivisual)
     try:
-        blog = Blogs.objects.get(pk=blog_id)
-        data.update({'blog': blog})
-    except Poll.DoesNotExist:
-        raise Http404
-    return render_to_response('tpl1/detail.html', RequestContext(request, data))
+        blog = Blogs.objects.get(pk=blog_id) # Get is single matching record by id(primary key) column
+        data.update({'blog': blog}) # Update the globle dict with data
+    except Poll.DoesNotExist: # if record does not exist raise an exception
+        raise Http404 # raise the Http404 Not found error
+    return render_to_response('tpl1/detail.html', RequestContext(request, data)) # render the template with data and request object
 
-
-def saveBlog(request):
-    loginDetails(request)
-    blog_title=request.POST["blog_title"]
+@authenticate # call the decorator 'authenticate'
+def saveBlog(request): # Save the blog to database
+    blog_title=request.POST["blog_title"] # Get blog title field from request object
     blog_contents=request.POST["blog_contents"]
-    user_id=data["login"]["id"]
-    reg_obj=Registration.objects.get(id=user_id)
-    blog_obj=Blogs(blog_title=blog_title, blog_contents=blog_contents,user_id=reg_obj,pub_date=datetime.now());
-    blog_obj.save()
-    return True
+    user_id=data["login"]["id"] # get the login id form global data dictionary
+    reg_obj=Registration.objects.get(id=user_id) # user object to pass foreign key object for user
+    blog_obj=Blogs(blog_title=blog_title, blog_contents=blog_contents,user_id=reg_obj,pub_date=datetime.now()); # create the instance of class Model Blog with values
+    blog_obj.save() # save the values/ database operations
+    return True #return true if not exception
 
-def create(request):
-    if request.session.get('login'):
-        data.update({"login":request.session['login']})
-    else:
-        return redirect('/login/')
-    loginDetails(request)
-    if data["login"]=="":
-        return redirect('/login')
-    data["view_name"]="create"
-    msg=""
-    form = BlogForm(request.POST)
-    if request.method == 'GET':
+@authenticate # call the decorator 'authenticate'
+def create(request): # create new blog
+    msg="" # initalize the msg variable to send the extra message to the template
+    form = BlogForm(request.POST) # get request
+    if request.method == 'GET': # check for form method is "GET"
         print "Get"
-    elif request.method == 'POST':
-       # if form.is_valid():
-       saveBlog(request)
+    elif request.method == 'POST':  # check for form method is "POST"
+       # if form.is_valid():     # Validate the formby using default validators
+       saveBlog(request)    # Call the saveBlog method
        msg="Blog saved successfully!"
 
-    data.update({"form":form,"msg":msg})
+    data.update({"form":form,"msg":msg}) # Update the global data dictionary
 
-    response = TemplateResponse(request, 'tpl1/createBlog.html', data)
+    response = TemplateResponse(request, 'tpl1/createBlog.html', data) # instantiate the response variable with request object and data
 
-    return response
+    return response # return response
 
-def myblogs(request):
-    if request.session.get('login'):
-        data.update({"login":request.session['login']})
-    else:
-        return redirect('/login/')
-    loginDetails(request)
-    data["view_name"]="myblogs"
+@authenticate # call the decorator 'authenticate'
+def myblogs(request): # View the blogs of authenticated users
+    data["view_name"]="myblogs" 
     try:
-        latest_blogs_list = Blogs.objects.filter(user_id=data["login"]["id"]).order_by('-pub_date')[:10]
-        data.update({'latest_blogs_list': latest_blogs_list})   
+        latest_blogs_list = Blogs.objects.filter(user_id=data["login"]["id"]).order_by('-pub_date')[:10] # get the blogs by user_id 
+        data.update({'latest_blogs_list': latest_blogs_list})   # Update the data dict
     except:
-        return render_to_response('tpl1/login.html',  RequestContext(request, data))
-    return render_to_response('tpl1/myBlogs.html',  RequestContext(request, data))
+        pass
+    return render_to_response('tpl1/myBlogs.html',  RequestContext(request, data)) # return response
 
-def edit(request,blog_id):
-    if request.session.get('login'):
-        data.update({"login":request.session['login']})
-    else:
-        return redirect('/login/')
-    loginDetails(request)    
+@authenticate # call the decorator 'authenticate'
+def edit(request,blog_id):    
     data["view_name"]="editBlog"
     msg=""
     record = Blogs(id=blog_id)

@@ -15,3 +15,4 @@ class Registration(models.Model):
     email = models.EmailField(max_length=50)
     mobile=models.CharField(max_length=15)
     password=models.CharField(max_length=30)
+
