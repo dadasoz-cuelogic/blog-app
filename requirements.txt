@@ -7,7 +7,7 @@ debtagshw==0.1
 defer==1.0.6
 dirspec==13.10
 Django==1.7.2
-django-debug-toolbar==1.2.2
+django-debug-toolbar==1.11.1
 django-extensions==1.4.9
 django-facebook==6.0.2
 django-h5bp==0.3.4
