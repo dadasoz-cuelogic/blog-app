@@ -13,7 +13,7 @@ django-facebook==6.0.2
 django-h5bp==0.3.4
 django-model-utils==2.2
 duplicity==0.6.23
-html5lib==0.999
+html5lib==0.99999999
 httplib2==0.8
 lockfile==0.8
 lxml==3.3.3
